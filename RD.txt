@@ -1,0 +1,7 @@
+Integração com Gateway de Pagamento e Webhooks
+
+Cliente: Assina-Já (Plataforma de SaaS por assinatura)
+
+Solicitação: "Precisamos conectar nosso Salesforce ao Stripe. 
+A solicitação é: 
+Quando um Contract for marcado como 'Ativo', o Salesforce deve criar um 'Customer' e uma 'Subscription' no Stripe via API. Além disso, precisamos configurar um endpoint (Apex REST) para receber Webhooks do Stripe; quando um pagamento falhar lá, o campo 'Status de Adimplência' no Salesforce deve ser atualizado para 'Atrasado' e um caso de alta prioridade deve ser aberto automaticamente para o time de CS."
