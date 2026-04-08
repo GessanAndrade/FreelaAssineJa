@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>status_adimplencia__c</fullName>
+    <label>status adimplencia</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sem definição</fullName>
+                <default>true</default>
+                <label>Sem definição</label>
+            </value>
+            <value>
+                <fullName>Em_dia</fullName>
+                <default>false</default>
+                <label>Em dia</label>
+            </value>
+            <value>
+                <fullName>Atrasado</fullName>
+                <default>false</default>
+                <label>Atrasado</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

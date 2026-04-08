@@ -1,0 +1,85 @@
+@isTest
+private class ServiceStripeTest {
+
+    @isTest
+    static void testCustomerExistsSuccess() {
+        Test.setMock(HttpCalloutMock.class, new ServiceStripeMock());
+        
+        Test.startTest();
+        Boolean exists = ServiceStripe.customerExists('test@example.com');
+        Test.stopTest();
+        
+        System.assertEquals(true, exists, 'O cliente deveria existir no mock');
+    }
+
+    @isTest
+    static void testPriceExistsSuccess() {
+        Test.setMock(HttpCalloutMock.class, new ServiceStripeMock());
+        
+        Test.startTest();
+        Boolean exists = ServiceStripe.priceExists('price_123');
+        Test.stopTest();
+        
+        System.assertEquals(true, exists, 'O preço deveria existir e estar ativo no mock');
+    }
+
+    @isTest
+    static void testCreateStripeCustomer() {
+        Test.setMock(HttpCalloutMock.class, new ServiceStripeMock());
+
+        Test.startTest();
+        String result = ServiceStripe.createStripeCustomer('Test User', 'test@example.com');
+        Test.stopTest();
+
+        System.assertNotEquals(null, result);
+        System.assert(result.contains('cus_test_123'));
+    }
+
+    @isTest
+    static void testCreateStripeSubscription() {
+        Test.setMock(HttpCalloutMock.class, new ServiceStripeMock());
+
+        Test.startTest();
+        String result = ServiceStripe.createStripeSubscription('cus_test_123', 'price_test_456');
+        Test.stopTest();
+
+        System.assertNotEquals(null, result);
+        System.assert(result.contains('sub_test_123'));
+    }
+
+    @isTest
+    static void testCreateStripeAccount() {
+        Test.setMock(HttpCalloutMock.class, new ServiceStripeMock());
+
+        Test.startTest();
+        String result = ServiceStripe.createStripeAccount('business@test.com', 'My Business');
+        Test.stopTest();
+
+        System.assertNotEquals(null, result);
+        System.assert(result.contains('acct_test_123'));
+    }
+
+    @isTest
+    static void testApiErrorScenario() {
+        // Mock que força um erro 400
+        Test.setMock(HttpCalloutMock.class, new StripeErrorMock());
+
+        Test.startTest();
+        String customerResult = ServiceStripe.createStripeCustomer('User', 'email@test.com');
+        Boolean customerCheck = ServiceStripe.customerExists('email@test.com');
+        Test.stopTest();
+
+        System.assertEquals(null, customerResult, 'Deveria retornar null em caso de erro de criação');
+        System.assertEquals(false, customerCheck, 'Deveria retornar false em caso de erro na busca');
+    }
+
+    // Inner class para simular falhas na API da Stripe
+    private class StripeErrorMock implements HttpCalloutMock {
+        public HttpResponse respond(HttpRequest req) {
+            HttpResponse res = new HttpResponse();
+            res.setStatusCode(400);
+            res.setBody('{"error": {"message": "Invalid Request"}}');
+            return res;
+        }
+    }
+}
