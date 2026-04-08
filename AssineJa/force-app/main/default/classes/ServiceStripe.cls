@@ -7,9 +7,9 @@ public class ServiceStripe {
      * Busca um cliente pelo e-mail e retorna o JSON bruto (getBody).
      */
     public static String customerExists(String email) {
+        
         HttpRequest req = new HttpRequest();
         
-        // Sintaxe de busca: query=email:"valor"
         String queryValue = 'email:"' + email + '"';
         String endpoint = BASE_URL + '/customers/search?query=' + EncodingUtil.urlEncode(queryValue, 'UTF-8');
         
@@ -20,9 +20,11 @@ public class ServiceStripe {
         Http http = new Http();
         try {
             HttpResponse res = http.send(req);
-            return res.getBody(); // Retorna o JSON com a lista de resultados
+            String body = res.getBody();
+            
+            return body; 
         } catch (Exception e) {
-            System.debug('Erro na busca de cliente: ' + e.getMessage());
+            System.debug('Erro fatal na chamada: ' + e.getMessage());
             return '{"error": "' + e.getMessage() + '"}';
         }
     }
