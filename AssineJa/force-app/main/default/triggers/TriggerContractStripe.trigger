@@ -8,7 +8,7 @@ trigger TriggerContractStripe on Contract (after insert, after update) {
             // Se for inserção ou se o Status mudou para 'Ativo'
             Boolean statusChanged = (Trigger.isInsert || (Trigger.isUpdate && c.Status != Trigger.oldMap.get(c.Id).Status));
             
-            if (c.Status == 'Ativo' && statusChanged) {
+            if (c.Status == 'Activated' && statusChanged) {
                 contractsToProcess.add(c);
             }
         }

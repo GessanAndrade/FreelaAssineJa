@@ -1,9 +1,18 @@
 public with sharing class HelperTests {
 
-    public static Contract createTestContact(String customerId, String productId) {
+    public static Contract createTestContractComplete(){
+
+        Product2 produto = createTestProduct();
+        Customer cliente = createTestCustomer();
+
+        return createTestContract(cliente.id, produto.id);
+    }
+
+    public static Contract createTestContract(Id customerId, Id productId) {
         Contract c = new Contract(
-            Name = 'Test',
-            Status = 'Active',
+            
+            Name = '001g7000009p9FxAAI',
+            Status = 'Activated',
             Product__c = productId,
             Status_adimplencia__c = 'Não definido',
             customer__c = customerId
@@ -27,11 +36,10 @@ public with sharing class HelperTests {
         return cs;
     }
 
-    public static Customer createTestCustomer(String productId, String stripeCustomerId) {
+    public static Customer createTestCustomer() {
         Customer cust = new Customer(
             Name = 'Test Customer',
-            Email__c = 'customer@example.com',
-            Stripe_Customer_ID__c = stripeCustomerId
+            Email__c = 'customer@example.com'
         );
 
         insert cust;
@@ -39,11 +47,10 @@ public with sharing class HelperTests {
         return cust;
     }
 
-    public static Product2 createTestProduct(String stripeId) {
+    public static Product2 createTestProduct() {
         Product2 p = new Product2(
             Name = 'Test Product',
-            IsActive = true,
-            Stripe_price_ID__c = stripeId
+            IsActive = true
         );
 
         insert p;
