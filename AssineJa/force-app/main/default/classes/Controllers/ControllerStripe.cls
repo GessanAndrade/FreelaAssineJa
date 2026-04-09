@@ -2,23 +2,27 @@ public with sharing class ControllerStripe {
 
     public static String createStripeCustomer(String name, String email) {
         
-       String response = '';
+       String response;
+       Id responseId = '';
 
        if (HelperUtils.haveContentJson(ServiceStripe.customerExists(email))) {
-            response = ServiceStripe.createStripeCustomer(
+           response = ServiceStripe.createStripeCustomer(
                 name,
                 email
             );
             
+            responseId = HelperUtils.returnKeyJson(response, 'id');
         }
 
-        return response;
+        return responseId;
 
     }
 
-    public static String createStripeSubscription(String customerId, String priceId) {
-           
-        String response = ServiceStripe.createStripeSubscription(
+    public static Id createStripeSubscription(String customerId, String priceId) {
+          
+        Id response;
+
+        response = ServiceStripe.createStripeSubscription(
             customerId, 
             priceId
         );

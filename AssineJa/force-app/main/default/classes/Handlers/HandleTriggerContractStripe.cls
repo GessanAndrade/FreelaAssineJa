@@ -3,24 +3,36 @@ public with sharing class HandleTriggerContractStripe {
     public static void processContracts(List<Contract> contracts) {
         
         Set<Id> contractIds = new Map<Id, Contract>(contracts).keySet();
+
+        Map<String, String> mapCustomers = new Map<String, String>();
+
+        Map<String, String> mapProducts = new Map<String, String>();
         
         List<Contract> contractsWithData = SelectorContract.getContractsByIds(contractIds);
         
         for (Contract contract : contractsWithData) {
             
-            createStripeCustomer(contract);
+            mapCustomers.put(contract.Customer__c, createStripeCustomer(contract)) ;
 
             createStripeSubscription(contract);
         }
+
+        ServiceCustomer.updateStripeIdCustomer(mapCustomers);
+
     }
 
-    public static void createStripeCustomer(Contract contract) {
+    public static String createStripeCustomer(Contract contract) {
+        
+        String id = '';
+        
         if (contract.Customer__r != null) {
-            ControllerStripe.createStripeCustomer(
+            id = ControllerStripe.createStripeCustomer(
                 contract.Customer__r.name,
                 contract.Customer__r.email__c
             );
-        }      
+        } 
+        
+        return id;
     }
 
     public static void createStripeSubscription(Contract contract) {

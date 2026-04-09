@@ -8,7 +8,8 @@ public with sharing class SelectorContract {
             SELECT Id, Status, 
                    Customer__r.Stripe_Customer_ID__c, 
                    Customer__r.email__c,
-                   Product__r.Stripe_price_ID__c
+                   Customer__c,
+                   Product__r.Stripe_price_ID__c                   
             FROM Contract 
             WHERE Id IN :contractIds
         ];
