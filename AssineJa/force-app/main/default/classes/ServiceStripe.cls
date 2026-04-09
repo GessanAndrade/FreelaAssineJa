@@ -74,6 +74,25 @@ public class ServiceStripe {
         }
     }
 
+    public static String deleteStripeCustomer(String customerId) {
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint(BASE_URL + '/customers/' + EncodingUtil.urlEncode(customerId, 'UTF-8'));
+        req.setMethod('DELETE');
+        req.setHeader('Authorization', 'Bearer ' + STRIPE_API_KEY);
+        req.setHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        System.debug('String request: ' + req);
+
+        Http http = new Http();
+        try {
+            HttpResponse res = http.send(req);
+            return res.getBody();
+        } catch (Exception e) {
+            System.debug('Erro ao deletar cliente: ' + e.getMessage());
+            return '{"error": "' + e.getMessage() + '"}';
+        }
+    }
+
     /**
      * Cria uma assinatura e retorna o JSON bruto (getBody).
      */
