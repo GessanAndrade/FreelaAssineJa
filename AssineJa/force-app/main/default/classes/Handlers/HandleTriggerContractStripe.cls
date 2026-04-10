@@ -1,24 +1,24 @@
 public with sharing class HandleTriggerContractStripe {
 
-    public static void processContracts(List<Contract> contracts) {
+    @future(callout=true)
+    public static void processContractsAsync(Set<Id> contractIds) {
         
-        Set<Id> contractIds = new Map<Id, Contract>(contracts).keySet();
-
         Map<String, String> mapCustomers = new Map<String, String>();
-
-        Map<String, String> mapProducts = new Map<String, String>();
         
+        // Buscamos os dados aqui dentro
         List<Contract> contractsWithData = SelectorContract.getContractsByIds(contractIds);
         
         for (Contract contract : contractsWithData) {
-            
-            mapCustomers.put(contract.Customer__c, createStripeCustomer(contract)) ;
 
-            createStripeSubscription(contract);
+            String stripeId = createStripeCustomer(contract);
+            if (String.isNotBlank(stripeId)) {
+                mapCustomers.put(contract.Customer__c, stripeId);
+            }
         }
 
-        ServiceCustomer.updateStripeIdCustomer(mapCustomers);
-
+        if (!mapCustomers.isEmpty()) {
+            ServiceCustomer.updateStripeIdCustomer(mapCustomers);
+        }
     }
 
     public static String createStripeCustomer(Contract contract) {
@@ -26,22 +26,29 @@ public with sharing class HandleTriggerContractStripe {
         String id = '';
         
         if (contract.Customer__r != null) {
-            id = ControllerStripe.createStripeCustomer(
-                contract.Customer__r.name,
+
+            id = ControllerStripe.createStripeCustomer(                
+                contract.Customer__r.Name,
                 contract.Customer__r.email__c
             );
+
+            System.debug('createStripeCustomer id: ' + id);
+
+            if (id <> ''){
+               createStripeSubscription(id, contract.Product__r.Stripe_price_ID__c);
+            }
         } 
         
         return id;
     }
 
-    public static void createStripeSubscription(Contract contract) {
+    public static void createStripeSubscription(String customerId, String priceId) {
 
-        if (contract.Customer__r.Stripe_Customer_ID__c != null && contract.Product__r.Stripe_price_ID__c != null) {
+        if (customerId != null && priceId != null) {
 
                 ControllerStripe.createStripeSubscription(
-                contract.Customer__r.Stripe_Customer_ID__c, 
-                contract.Product__r.Stripe_price_ID__c
+                    customerId, 
+                    priceId
 
             );
         }     

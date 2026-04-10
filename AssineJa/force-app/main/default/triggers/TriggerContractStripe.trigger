@@ -1,20 +1,23 @@
 trigger TriggerContractStripe on Contract (after insert, after update) {
   
     if (Trigger.isAfter) {
-        // Filtramos os contratos que mudaram para o status 'Ativo' para evitar chamadas desnecessárias
-        List<Contract> contractsToProcess = new List<Contract>();
+
+        Set<Id> idsToProcess = new Set<Id>();
         
         for (Contract c : Trigger.new) {
-            // Se for inserção ou se o Status mudou para 'Ativo'
             Boolean statusChanged = (Trigger.isInsert || (Trigger.isUpdate && c.Status != Trigger.oldMap.get(c.Id).Status));
             
+            System.debug('statusChanged' + statusChanged);
+
             if (c.Status == 'Activated' && statusChanged) {
-                contractsToProcess.add(c);
+                idsToProcess.add(c.Id);
             }
         }
+
+        System.debug('idsToProcess' + idsToProcess);
         
-        if (!contractsToProcess.isEmpty()) {
-            HandleTriggerContractStripe.processContracts(contractsToProcess);
+        if (!idsToProcess.isEmpty()) {
+            HandleTriggerContractStripe.processContractsAsync(idsToProcess);
         }
     }
 }

@@ -4,6 +4,9 @@ public with sharing class HelperUtils {
 
         Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(resultado);
 
+
+        System.debug('Json completo: ' + responseMap);
+
         if (responseMap.containsKey(key)) {
             
             String stripeId = (String) responseMap.get(key);

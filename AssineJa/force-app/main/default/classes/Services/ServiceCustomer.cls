@@ -10,15 +10,20 @@ public with sharing class ServiceCustomer {
             WHERE Id IN :customers.keySet()
         ];
 
+        System.debug('sfCustomers' + sfCustomers);
+
         for (Customer sc : sfCustomers) {
             
-            if (customers.containsKey(sc.email__c)) {
-
-                sc.Stripe_Customer_ID__c = customers.get(sc.email__c);
+            if (customers.containsKey(sc.Id)) { 
+                sc.Stripe_Customer_ID__c = customers.get(sc.Id);            
                 
+                System.debug('email: ' + customers.get(sc.email__c));
+
                 listToUpdate.add(sc);
             }
         }
+
+        System.debug('customers.keySet(): ' + customers.keySet());
 
         if (!listToUpdate.isEmpty()) {
             update listToUpdate;

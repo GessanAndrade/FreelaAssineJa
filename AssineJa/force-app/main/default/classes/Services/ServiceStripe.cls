@@ -59,6 +59,9 @@ public class ServiceStripe {
         req.setMethod('POST');
         req.setHeader('Authorization', 'Bearer ' + STRIPE_API_KEY);
         req.setHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        System.debug('Service.createStripeCustomer name: ' + name);
+        System.debug('Service.createStripeCustomer email: ' + email);
         
         String body = 'name=' + EncodingUtil.urlEncode(name, 'UTF-8') + 
                       '&email=' + EncodingUtil.urlEncode(email, 'UTF-8');

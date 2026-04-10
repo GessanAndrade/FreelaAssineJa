@@ -1,6 +1,9 @@
 public with sharing class SelectorContract {
     public static Contract getContractById(Id contractId) {
-        return [SELECT Customer__r.Stripe_Customer_ID__c, Customer__r.email__c FROM Contract WHERE Id = :contractId LIMIT 1];
+        return [SELECT Customer__r.Stripe_Customer_ID__c, 
+                       Customer__r.email__c, 
+                       Status,
+                       Product__r.Stripe_price_ID__c FROM Contract WHERE Id = :contractId LIMIT 1];
     }
 
     public static List<Contract> getContractsByIds(Set<Id> contractIds) {
@@ -8,6 +11,7 @@ public with sharing class SelectorContract {
             SELECT Id, Status, 
                    Customer__r.Stripe_Customer_ID__c, 
                    Customer__r.email__c,
+                   Customer__r.Name,
                    Customer__c,
                    Product__r.Stripe_price_ID__c                   
             FROM Contract 

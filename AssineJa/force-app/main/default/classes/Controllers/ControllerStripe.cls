@@ -3,15 +3,17 @@ public with sharing class ControllerStripe {
     public static String createStripeCustomer(String name, String email) {
         
        String response;
-       Id responseId = '';
+       String responseId;
 
-       if (HelperUtils.haveContentJson(ServiceStripe.customerExists(email))) {
+       if (!HelperUtils.haveContentJson(ServiceStripe.customerExists(email))) {
            response = ServiceStripe.createStripeCustomer(
                 name,
                 email
             );
             
             responseId = HelperUtils.returnKeyJson(response, 'id');
+        }else{
+            responseId = '';
         }
 
         return responseId;
