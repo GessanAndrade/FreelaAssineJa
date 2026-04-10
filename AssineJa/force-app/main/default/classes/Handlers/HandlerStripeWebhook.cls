@@ -14,18 +14,18 @@ global class HandlerStripeWebhook {
             Map<String, Object> event = (Map<String, Object>) JSON.deserializeUntyped(jsonBody);
             String eventType = (String) event.get('type');
 
-            System.debug('Evento recebido da Stripe: ' + eventType);
+            System.debug('Evento recebido da Stripe: ' + event);
 
             // Lógica para diferentes tipos de eventos
             if (eventType == 'invoice.paid') {
-                // Lógica para quando uma fatura é paga
                 handleInvoicePaid(event);
             } else if (eventType == 'customer.subscription.deleted') {
-                // Lógica para quando uma assinatura é cancelada
-                //handleSubscriptionDeleted(event);
+                
+            } else if (eventType == 'invoice.payment_failed'){
+
             }
 
-            res.statusCode = 200; // Avisa à Stripe que recebemos com sucesso
+            res.statusCode = 200; 
         } catch (Exception e) {
             res.statusCode = 400;
             System.debug('Erro no Webhook: ' + e.getMessage());
