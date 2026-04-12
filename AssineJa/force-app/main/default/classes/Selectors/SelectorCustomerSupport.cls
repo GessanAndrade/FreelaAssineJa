@@ -1,4 +1,4 @@
-public with sharing class SelectorCustomerSupport {
+public with sharing class SelectorCustomerSupport implements InterfaceSelectorCustomerSupport{
    
     public static List<Customer_Support__c> getCustomerSupportsByIds(Set<Id> idsSupports){
         return [

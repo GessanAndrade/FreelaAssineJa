@@ -38,10 +38,6 @@ public class ServiceStripe {
         }
     }
 
-    /**
-     * NOVO: Anexa um meio de pagamento de teste e define como padrão.
-     * Isso resolve o erro "This customer has no attached payment source".
-     */
     public static void attachTestPaymentMethod(String customerId) {
         HttpRequest req = new HttpRequest();
         req.setEndpoint(BASE_URL + '/customers/' + customerId);
@@ -49,13 +45,12 @@ public class ServiceStripe {
         req.setHeader('Authorization', 'Bearer ' + STRIPE_API_KEY);
         req.setHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        // 'tok_visa' é um token de teste do Stripe que representa um cartão válido
-        String body = 'source=tok_chargeCustomerFail'; 
+        String body = 'source=tok_visa'; 
         req.setBody(body);
 
         Http http = new Http();
         try {
-            http.send(req); // Atualiza o cliente com o cartão de teste
+            http.send(req); 
         } catch (Exception e) {
             System.debug('Erro ao anexar cartão de teste: ' + e.getMessage());
         }
@@ -68,10 +63,9 @@ public class ServiceStripe {
         req.setHeader('Authorization', 'Bearer ' + STRIPE_API_KEY);
         req.setHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        // Definimos collection_method como charge_automatically
         String body = 'customer=' + EncodingUtil.urlEncode(customerId, 'UTF-8') + 
                       '&items[0][price]=' + EncodingUtil.urlEncode(priceId, 'UTF-8') +
-                      '&payment_behavior=default_incomplete'; // Ajuda a gerenciar falhas iniciais
+                      '&payment_behavior=default_incomplete'; 
         req.setBody(body);
 
         Http http = new Http();

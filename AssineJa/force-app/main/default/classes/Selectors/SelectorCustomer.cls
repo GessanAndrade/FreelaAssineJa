@@ -1,4 +1,4 @@
-public with sharing class SelectorCustomer {
+public with sharing class SelectorCustomer implements InterfaceSelectCustomer{
 
     public static String getCustomerByStripeID(String idStripe) {
         // 1. Tenta achar o cliente real

@@ -1,4 +1,4 @@
-public with sharing class SelectorContract {
+public with sharing class SelectorContract implements InterfaceSelectorContract{
     public static Contract getContractById(Id contractId) {
         return [SELECT Customer__r.Stripe_Customer_ID__c, 
                        Customer__r.email__c, 

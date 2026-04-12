@@ -1,6 +1,12 @@
-public with sharing class ServiceCustomer {
+public with sharing class ServiceCustomer implements InterfaceCustomer{
 
-   public static void updateStripeIdCustomer(Map<String, String> customers) {
+    private InterfaceRepositoryMain irepository;
+
+    public ServiceCustomer(InterfaceRepositoryMain irepository){
+        this.irepository = irepository;
+    }
+
+   public void updateStripeIdCustomer(Map<String, String> customers) {
 
         List<Customer> listToUpdate = new List<Customer>();
 
@@ -26,7 +32,7 @@ public with sharing class ServiceCustomer {
         System.debug('customers.keySet(): ' + customers.keySet());
 
         if (!listToUpdate.isEmpty()) {
-            update listToUpdate;
+            irepository.updateCustomers(listToUpdate);
         }
     }
 }
