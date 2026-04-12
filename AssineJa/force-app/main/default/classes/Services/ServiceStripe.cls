@@ -50,7 +50,7 @@ public class ServiceStripe {
         req.setHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         // 'tok_visa' é um token de teste do Stripe que representa um cartão válido
-        String body = 'source=tok_visa'; 
+        String body = 'source=tok_chargeCustomerFail'; 
         req.setBody(body);
 
         Http http = new Http();

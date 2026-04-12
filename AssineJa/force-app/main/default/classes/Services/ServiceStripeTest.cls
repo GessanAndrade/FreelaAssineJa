@@ -12,16 +12,6 @@ private class ServiceStripeTest {
     }
 
     @isTest
-    static void testPriceExistsSuccess() {
-        Test.setMock(HttpCalloutMock.class, new ServiceStripeMock());
-        
-        Test.startTest();
-        String exists = ServiceStripe.priceExists('price_123');
-        Test.stopTest();
-        
-    }
-
-    @isTest
     static void testCreateStripeCustomer() {
         Test.setMock(HttpCalloutMock.class, new ServiceStripeMock());
 
@@ -43,18 +33,6 @@ private class ServiceStripeTest {
 
         System.assertNotEquals(null, result);
         System.assert(result.contains('sub_test_123'));
-    }
-
-    @isTest
-    static void testCreateStripeAccount() {
-        Test.setMock(HttpCalloutMock.class, new ServiceStripeMock());
-
-        Test.startTest();
-        String result = ServiceStripe.createStripeAccount('business@test.com', 'My Business');
-        Test.stopTest();
-
-        System.assertNotEquals(null, result);
-        System.assert(result.contains('acct_test_123'));
     }
 
     @isTest

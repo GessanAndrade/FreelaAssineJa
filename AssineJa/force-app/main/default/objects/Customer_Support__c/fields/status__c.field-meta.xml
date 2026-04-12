@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>prioridade__c</fullName>
-    <label>prioridade</label>
+    <fullName>status__c</fullName>
+    <label>status</label>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
@@ -10,19 +10,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Baixa</fullName>
-                <default>false</default>
-                <label>Baixa</label>
+                <fullName>Aberto</fullName>
+                <default>true</default>
+                <label>Aberto</label>
             </value>
             <value>
-                <fullName>Media</fullName>
+                <fullName>Fechado</fullName>
                 <default>false</default>
-                <label>Média</label>
-            </value>
-            <value>
-                <fullName>Alta</fullName>
-                <default>false</default>
-                <label>Alta</label>
+                <label>Fechado</label>
             </value>
         </valueSetDefinition>
     </valueSet>

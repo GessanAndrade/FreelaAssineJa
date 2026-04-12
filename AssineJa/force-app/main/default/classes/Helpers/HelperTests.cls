@@ -15,7 +15,7 @@ public with sharing class HelperTests {
             Status = 'Activated',
             Product__c = productId,
             Status_adimplencia__c = 'Não definido',
-            customer__c = customerId
+            Customer__c = customerId
         );
 
         insert c;
@@ -26,7 +26,7 @@ public with sharing class HelperTests {
     public static Customer_Support__c createTestCustomerSupport(String customerId) {
 
         Customer_Support__c cs = new Customer_Support__c(
-            Customer__c = customerId,
+            CustuomerID__c = customerId,
             Description__c = 'Test description',
             prioridade__c = 'Alta'
         );
