@@ -2,7 +2,6 @@ public without sharing class ServiceStripeWebHook implements InterfaceStripeWebh
     
     private InterfaceCustomerSupport icustomerSupport;
     
-    // Construtor com Injeção de Dependência
     public ServiceStripeWebHook(InterfaceCustomerSupport icustomerSupport) {
         this.icustomerSupport = icustomerSupport;
     }

@@ -37,7 +37,7 @@ private class ServiceStripeTest {
 
     @isTest
     static void testApiErrorScenario() {
-        // Mock que força um erro 400
+        
         Test.setMock(HttpCalloutMock.class, new StripeErrorMock());
 
         Test.startTest();
@@ -48,7 +48,6 @@ private class ServiceStripeTest {
         System.assertEquals(null, customerResult, 'Deveria retornar null em caso de erro de criação');
     }
 
-    // Inner class para simular falhas na API da Stripe
     private class StripeErrorMock implements HttpCalloutMock {
         public HttpResponse respond(HttpRequest req) {
             HttpResponse res = new HttpResponse();

@@ -6,7 +6,6 @@ global without sharing class HandlerStripeWebhook {
         RestRequest req = RestContext.request;
         RestResponse res = RestContext.response;
 
-        // 1. Validação básica de entrada
         if (req.requestBody == null || String.isBlank(req.requestBody.toString())) {
             res.statusCode = 400;
             res.responseBody = Blob.valueOf(JSON.serialize(new Map<String, String>{'error' => 'Empty body'}));
@@ -29,7 +28,7 @@ global without sharing class HandlerStripeWebhook {
             System.debug('Mensagem: ' + e.getMessage());
             System.debug('StackTrace: ' + e.getStackTraceString());
             
-            res.statusCode = 400; // Ou 500 dependendo da severidade
+            res.statusCode = 400;
             res.responseBody = Blob.valueOf(JSON.serialize(new Map<String, String>{
                 'error' => e.getMessage(),
                 'type' => e.getTypeName()
