@@ -150,37 +150,6 @@ Para permitir acesso via Guest User:
 
 ---
 
-## 🧪 Testes
-
-### Executar testes Apex
-
-```bash
-sfdx force:apex:test:run
-```
-
-### Requisitos
-
-* Cobertura mínima: **75%**
-* Testes devem cobrir:
-
-  * Triggers
-  * Classes de serviço
-  * Casos de erro
-
----
-
-## 📦 Deploy
-
-### Para produção:
-
-```bash
-sfdx force:source:deploy -p force-app
-```
-
-Ou via pipeline CI/CD (recomendado)
-
----
-
 ## 🔄 Boas Práticas
 
 ### Apex
@@ -201,47 +170,9 @@ Ou via pipeline CI/CD (recomendado)
 
 ---
 
-## 🚧 Possíveis Melhorias
-
-* Implementação de Service Layer
-* Uso de Domain Pattern (fflib)
-* Pipeline CI/CD (GitHub Actions)
-* Aumento de cobertura de testes
-* Logging estruturado
-
----
-
-## 👨‍💻 Contribuição
-
-1. Fork do projeto
-2. Criar branch:
-
-   ```bash
-   git checkout -b feature/minha-feature
-   ```
-3. Commit:
-
-   ```bash
-   git commit -m "feat: minha feature"
-   ```
-4. Push:
-
-   ```bash
-   git push origin feature/minha-feature
-   ```
-5. Abrir Pull Request
-
----
-
 ## 📄 Licença
 
 Este projeto é de uso interno / privado.
-
----
-
-## 📞 Contato
-
-Para dúvidas ou suporte, entre em contato com o responsável pelo projeto.
 
 ---
 

@@ -1,0 +1,61 @@
+SALESFORCE CONFIGURATION GUIDE
+
+To make this project work properly, configure the following:
+
+1.  ORG SETUP
+
+-   Enable My Domain
+-   Enable Lightning Experience
+-   Enable API access
+
+2.  GUEST USER CONFIGURATION
+
+-   Go to: Setup → Digital Experiences → All Sites
+-   Create or access a site
+-   Open Workspaces → Administration → Pages → Public Access Settings
+
+Permissions: - Assign object permissions (Read/Create where needed) -
+Allow Apex class access - Enable field-level security
+
+IMPORTANT: - Guest users must have explicit access to: - Apex Classes -
+Objects used in triggers - Fields used in logic
+
+3.  APEX SETTINGS
+
+-   Enable “Allow Apex REST Services”
+-   Add classes to profiles/permission sets
+
+4.  OBJECT CONFIGURATION
+
+-   Ensure objects exist (custom objects if any)
+-   Add required fields
+-   Set validation rules if needed
+
+5.  SECURITY
+
+-   Disable “Secure guest user record access” only if necessary (not
+    recommended)
+-   Prefer sharing rules instead
+
+6.  DEPLOYMENT
+
+-   Use SFDX: sfdx force:source:push
+
+7.  TESTS
+
+-   Run: sfdx force:apex:test:run
+
+8.  PERMISSION SETS
+
+-   Create permission sets for:
+    -   Internal users
+    -   Guest users
+-   Assign accordingly
+
+9.  SHARING RULES
+
+-   Create rules to allow guest user visibility
+
+10. REMOTE SITE SETTINGS (if integrations exist)
+
+-   Add external endpoints
