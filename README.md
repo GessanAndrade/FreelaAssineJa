@@ -2,182 +2,183 @@
 
 ## 📌 Overview
 
-O **AssineJá** é um projeto baseado em **Salesforce DX (SFDX)** projetado para gerenciar fluxos de assinatura, atendimento ao cliente e automações de negócio dentro da plataforma Salesforce.
+**AssineJá** is a project based on **Salesforce DX (SFDX)** designed to
+manage subscription flows, customer support, and business automation
+within the Salesforce platform.
 
-A aplicação utiliza **Apex, Triggers e Metadata do Salesforce** para implementar regras de negócio robustas, garantindo escalabilidade, governança e integração com o ecossistema Salesforce.
+The application uses **Apex, Triggers, and Salesforce Metadata** to
+implement robust business logic, ensuring scalability, governance, and
+seamless integration with the Salesforce ecosystem.
 
----
+------------------------------------------------------------------------
 
-## 🧠 Objetivo
+## 🧠 Purpose
 
-Este projeto tem como objetivo:
+This project aims to:
 
-* Automatizar processos de assinatura
-* Gerenciar interações com clientes
-* Centralizar regras de negócio no backend (Apex)
-* Garantir consistência e integridade de dados
-* Permitir exposição controlada via usuários Guest (quando necessário)
+-   Automate subscription processes
+-   Manage customer interactions
+-   Centralize business logic in the backend (Apex)
+-   Ensure data consistency and integrity
+-   Allow controlled exposure via Guest Users (when needed)
 
----
+------------------------------------------------------------------------
 
-## 🏗️ Arquitetura
+## 🏗️ Architecture
 
-O projeto segue o modelo **Salesforce DX**, com separação clara de responsabilidades:
+The project follows the **Salesforce DX** model, with clear separation
+of responsibilities:
 
-```
-force-app/
- └── main/
-     └── default/
-         ├── classes/       → Lógica de negócio (Apex)
-         ├── triggers/      → Eventos de banco (DML)
-         ├── objects/       → Definição de objetos
-         ├── layouts/       → Layouts de UI
-         ├── permissionsets/ → Controle de acesso
-```
+    force-app/
+     └── main/
+         └── default/
+             ├── classes/       → Business logic (Apex)
+             ├── triggers/      → Database events (DML)
+             ├── objects/       → Object definitions
+             ├── layouts/       → UI layouts
+             ├── permissionsets/ → Access control
 
-### 🔹 Padrões utilizados
+### 🔹 Patterns Used
 
-* Trigger Handler Pattern (se aplicável)
-* Separação de responsabilidades
-* Organização por metadata
-* Uso de ferramentas de lint e formatação
+-   Trigger Handler Pattern (when applicable)
+-   Separation of concerns
+-   Metadata-driven organization
+-   Linting and formatting tools
 
----
+------------------------------------------------------------------------
 
-## 🛠️ Stack Tecnológica
+## 🛠️ Tech Stack
 
-* **Salesforce DX (SFDX)**
-* **Apex**
-* **SOQL**
-* **Lightning Platform**
-* **Node.js**
-* ESLint / Prettier
-* Jest (quando aplicável)
+-   **Salesforce DX (SFDX)**
+-   **Apex**
+-   **SOQL**
+-   **Lightning Platform**
+-   **Node.js**
+-   ESLint / Prettier
+-   Jest (when applicable)
 
----
+------------------------------------------------------------------------
 
-## ⚙️ Pré-requisitos
+## ⚙️ Prerequisites
 
-Antes de começar, você precisa ter instalado:
+Before getting started, ensure you have:
 
-* Salesforce CLI (SFDX)
-* Node.js (>= 16)
-* Git
-* Acesso a uma org Salesforce (Dev ou Sandbox)
+-   Salesforce CLI (SFDX)
+-   Node.js (\>= 16)
+-   Git
+-   Access to a Salesforce org (Dev or Sandbox)
 
----
+------------------------------------------------------------------------
 
-## 🚀 Setup do Projeto
+## 🚀 Project Setup
 
-### 1. Clonar repositório
+### 1. Clone repository
 
-```bash
+``` bash
 git clone <repo-url>
 cd assineja
 ```
 
-### 2. Autenticar no Salesforce
+### 2. Authenticate with Salesforce
 
-```bash
+``` bash
 sfdx auth:web:login
 ```
 
-### 3. Criar ou usar uma org
+### 3. Create or use an org
 
-```bash
+``` bash
 sfdx force:org:create -s -f config/project-scratch-def.json
 ```
 
-### 4. Deploy do projeto
+### 4. Deploy project
 
-```bash
+``` bash
 sfdx force:source:push
 ```
 
-### 5. Atribuir permissões
+### 5. Assign permissions
 
-```bash
+``` bash
 sfdx force:user:permset:assign -n <PermissionSetName>
 ```
 
----
+------------------------------------------------------------------------
 
-## 🔐 Configuração de Segurança
+## 🔐 Security Configuration
 
-### 👤 Guest User (Acesso público)
+### 👤 Guest User (Public Access)
 
-Para permitir acesso via Guest User:
+To enable Guest User access:
 
-1. Vá em:
+1.  Go to:
 
-   ```
-   Setup → Digital Experiences → All Sites
-   ```
+    Setup → Digital Experiences → All Sites
 
-2. Acesse o site desejado
+2.  Access your site
 
-3. Vá em:
+3.  Navigate to:
 
-   ```
-   Workspaces → Administration → Pages → Public Access Settings
-   ```
+    Workspaces → Administration → Pages → Public Access Settings
 
-4. Configure:
+4.  Configure:
 
-#### Permissões necessárias:
+#### Required Permissions:
 
-* Acesso a classes Apex utilizadas
-* Permissões de objeto (Read / Create conforme necessário)
-* Permissões de campo (Field-Level Security)
+-   Access to Apex classes used
+-   Object permissions (Read / Create as needed)
+-   Field-Level Security (FLS)
 
-#### ⚠️ Importante:
+#### ⚠️ Important:
 
-* Guest User NÃO tem acesso automático a registros
-* Configure **Sharing Rules** para liberar acesso
-* Evite desabilitar:
+-   Guest Users do NOT have automatic record access
 
-  ```
-  Secure guest user record access
-  ```
+-   Configure **Sharing Rules** to grant visibility
 
----
+-   Avoid disabling:
 
-## 🧩 Configuração de Objetos
+    Secure guest user record access
 
-* Certifique-se que todos os objetos customizados estejam presentes
-* Campos obrigatórios devem estar configurados
-* Validações e triggers devem ser compatíveis com o fluxo
+------------------------------------------------------------------------
 
----
+## 🧩 Object Configuration
 
-## 🔄 Boas Práticas
+-   Ensure all custom objects are deployed
+-   Required fields must be properly configured
+-   Validation rules and triggers must align with business flows
+
+------------------------------------------------------------------------
+
+## 🔄 Best Practices
 
 ### Apex
 
-* Sempre **bulkificar código**
-* Evitar SOQL dentro de loops
-* Respeitar governor limits
+-   Always **bulkify code**
+-   Avoid SOQL inside loops
+-   Respect governor limits
 
 ### Triggers
 
-* Um trigger por objeto
-* Lógica delegada para classes handler
+-   One trigger per object
+-   Delegate logic to handler classes
 
-### Segurança
+### Security
 
-* Sempre validar acesso (CRUD/FLS)
-* Evitar exposição desnecessária ao Guest User
+-   Always enforce CRUD/FLS checks
+-   Avoid unnecessary exposure to Guest Users
 
----
+------------------------------------------------------------------------
 
-## 📄 Licença
+## 📄 License
 
-Este projeto é de uso interno / privado.
+This project is for internal/private use.
 
----
+------------------------------------------------------------------------
 
-## 🧾 Conclusão
+## 🧾 Conclusion
 
-O **AssineJá** é um projeto estruturado para ambientes Salesforce modernos, utilizando boas práticas de desenvolvimento e preparado para evolução contínua.
+**AssineJá** is a structured project designed for modern Salesforce
+environments, following best practices and ready for continuous
+evolution.
 
----
+------------------------------------------------------------------------
